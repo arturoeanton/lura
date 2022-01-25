@@ -76,8 +76,12 @@ type ginRouter struct {
 	mu         *sync.Mutex
 }
 
+func (r ginRouter) ResteEngine() {
+	r.cfg.Engine.ResetTrees()
+}
+
 // Run implements the router interface
-func (r ginRouter) Run(cfg config.ServiceConfig) {
+func (r ginRouter) RegisterKrakendEndpoints(cfg config.ServiceConfig) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -106,6 +110,10 @@ func (r ginRouter) Run(cfg config.ServiceConfig) {
 
 	r.registerKrakendEndpoints(endpointGroup, cfg.Endpoints)
 
+}
+
+// Run implements the router interface
+func (r ginRouter) Run(cfg config.ServiceConfig) {
 	if err := r.runServerF(r.ctx, cfg, r.cfg.Engine); err != nil {
 		r.cfg.Logger.Error(err.Error())
 	}

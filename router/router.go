@@ -13,6 +13,8 @@ import (
 // Router sets up the public layer exposed to the users
 type Router interface {
 	Run(config.ServiceConfig)
+	RegisterKrakendEndpoints(cfg config.ServiceConfig)
+	ResteEngine()
 }
 
 // RouterFunc type is an adapter to allow the use of ordinary functions as routers.
