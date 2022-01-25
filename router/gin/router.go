@@ -114,6 +114,7 @@ func (r ginRouter) RegisterKrakendEndpoints(cfg config.ServiceConfig) {
 
 // Run implements the router interface
 func (r ginRouter) Run(cfg config.ServiceConfig) {
+	r.RegisterKrakendEndpoints(cfg)
 	if err := r.runServerF(r.ctx, cfg, r.cfg.Engine); err != nil {
 		r.cfg.Logger.Error(err.Error())
 	}
